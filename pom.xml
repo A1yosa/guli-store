@@ -17,6 +17,9 @@
         <module>gulistore-order</module>
         <module>gulistore-product</module>
         <module>gulistore-ware</module>
+        <module>renren-fast</module>
+        <module>renren-generator</module>
+        <module>gulistore-common</module>
     </modules>
 
 
