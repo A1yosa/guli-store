@@ -20,7 +20,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 *   动态获取并刷新配置
 *           @RefreshScope
 *           @Value("${配置项的名}")
-*           注意：优先使用配置中心的配置
+*           注意：优先使用配置中心的 配置
 *
 * 细节
 *       命名空间：
