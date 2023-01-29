@@ -36,7 +36,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 *
 *   每个微服务创建自己的命名空间，使用配置分组区分环境，dev，test，prod
 *
-*
 * 同时加载多个配置集
 *   微服务任何配置信息、任何配置文件都可以放在配置中心中
 *   只需在bootstrap.properties中说明加载配置中心中哪些配置文件即可
