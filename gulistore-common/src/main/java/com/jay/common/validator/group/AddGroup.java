@@ -16,3 +16,4 @@ package com.jay.common.validator.group;
  */
 public interface AddGroup {
 }
+
