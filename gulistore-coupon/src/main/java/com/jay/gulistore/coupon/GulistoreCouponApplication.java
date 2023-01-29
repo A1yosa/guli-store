@@ -38,6 +38,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 *
 *
 *
+*
 * 同时加载多个配置集
 *   微服务任何配置信息、任何配置文件都可以放在配置中心中
 *   只需在bootstrap.properties中说明加载配置中心中哪些配置文件即可
