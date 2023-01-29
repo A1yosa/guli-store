@@ -43,7 +43,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 *   @Value  @ConfigurationProperties....以前spring boot任何方法从配置文件中取值，都能使用，且优先使用配置中心
 *
 *
-* 
+*
 * */
 
 
