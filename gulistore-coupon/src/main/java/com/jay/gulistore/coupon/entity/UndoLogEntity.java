@@ -8,7 +8,8 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 
+ *
+ *
  * 
  * @author jay
  * @email huanchen659@gmail.com

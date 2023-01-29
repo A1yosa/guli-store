@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 /*
 * 1、远程调用别的服务
+*
 *   引用open-feign
 *   编写一个接口，告诉springCloud这个接口需要远程调用服务
 *       声明接口的每一个方法都是调用那个远程服务的那个请求

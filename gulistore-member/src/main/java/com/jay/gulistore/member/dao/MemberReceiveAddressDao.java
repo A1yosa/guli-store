@@ -1,5 +1,6 @@
 package com.jay.gulistore.member.dao;
 
+
 import com.jay.gulistore.member.entity.MemberReceiveAddressEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;

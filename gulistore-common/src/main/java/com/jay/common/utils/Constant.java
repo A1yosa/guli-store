@@ -8,6 +8,7 @@
 
 package com.jay.common.utils;
 
+
 import com.jay.common.validator.group.AliyunGroup;
 import com.jay.common.validator.group.QcloudGroup;
 import com.jay.common.validator.group.QiniuGroup;

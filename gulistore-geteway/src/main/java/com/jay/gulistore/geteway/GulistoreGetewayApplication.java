@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /*
+
 * 开启服务的注册发现(配置nacos的注册中心地址)
 * 注意在pom.xml中的common 依赖中exclusion spring-webmvc
 * */

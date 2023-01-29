@@ -12,6 +12,7 @@ spring:
   application:
     name: gulistore-product
 
+
 # MapperScan
 # sql映射文件位置
 mybatis-plus:
