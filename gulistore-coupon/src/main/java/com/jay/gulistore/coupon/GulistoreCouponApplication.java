@@ -42,6 +42,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 *   只需在bootstrap.properties中说明加载配置中心中哪些配置文件即可
 *   @Value  @ConfigurationProperties....以前spring boot任何方法从配置文件中取值，都能使用，且优先使用配置中心
 *
+*
+* 
 * */
 
 
