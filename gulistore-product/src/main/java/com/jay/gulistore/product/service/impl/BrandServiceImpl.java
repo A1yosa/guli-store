@@ -12,7 +12,6 @@ import com.jay.gulistore.product.dao.BrandDao;
 import com.jay.gulistore.product.entity.BrandEntity;
 import com.jay.gulistore.product.service.BrandService;
 
-
 @Service("brandService")
 public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> implements BrandService {
 

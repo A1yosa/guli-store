@@ -12,7 +12,6 @@ import com.jay.gulistore.ware.dao.WareInfoDao;
 import com.jay.gulistore.ware.entity.WareInfoEntity;
 import com.jay.gulistore.ware.service.WareInfoService;
 
-
 @Service("wareInfoService")
 public class WareInfoServiceImpl extends ServiceImpl<WareInfoDao, WareInfoEntity> implements WareInfoService {
 

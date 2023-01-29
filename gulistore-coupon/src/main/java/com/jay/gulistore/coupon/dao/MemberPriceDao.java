@@ -1,6 +1,5 @@
 package com.jay.gulistore.coupon.dao;
 
-
 import com.jay.gulistore.coupon.entity.MemberPriceEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;

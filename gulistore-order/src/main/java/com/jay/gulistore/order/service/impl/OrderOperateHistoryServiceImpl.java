@@ -12,7 +12,6 @@ import com.jay.gulistore.order.dao.OrderOperateHistoryDao;
 import com.jay.gulistore.order.entity.OrderOperateHistoryEntity;
 import com.jay.gulistore.order.service.OrderOperateHistoryService;
 
-
 @Service("orderOperateHistoryService")
 public class OrderOperateHistoryServiceImpl extends ServiceImpl<OrderOperateHistoryDao, OrderOperateHistoryEntity> implements OrderOperateHistoryService {
 

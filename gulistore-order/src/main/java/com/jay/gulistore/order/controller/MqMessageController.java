@@ -19,7 +19,6 @@ import com.jay.common.utils.R;
 
 
 /**
- * 
  *
  * @author jay
  * @email huanchen659@gmail.com

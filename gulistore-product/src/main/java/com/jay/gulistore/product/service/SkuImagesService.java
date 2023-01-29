@@ -6,6 +6,7 @@ import com.jay.gulistore.product.entity.SkuImagesEntity;
 
 import java.util.Map;
 
+
 /**
  * sku图片
  *

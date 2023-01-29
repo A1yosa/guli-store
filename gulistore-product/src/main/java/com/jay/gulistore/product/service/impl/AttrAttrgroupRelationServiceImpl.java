@@ -12,7 +12,6 @@ import com.jay.gulistore.product.dao.AttrAttrgroupRelationDao;
 import com.jay.gulistore.product.entity.AttrAttrgroupRelationEntity;
 import com.jay.gulistore.product.service.AttrAttrgroupRelationService;
 
-
 @Service("attrAttrgroupRelationService")
 public class AttrAttrgroupRelationServiceImpl extends ServiceImpl<AttrAttrgroupRelationDao, AttrAttrgroupRelationEntity> implements AttrAttrgroupRelationService {
 

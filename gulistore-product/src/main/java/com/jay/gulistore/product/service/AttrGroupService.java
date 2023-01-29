@@ -6,6 +6,7 @@ import com.jay.gulistore.product.entity.AttrGroupEntity;
 
 import java.util.Map;
 
+
 /**
  * 属性分组
  *

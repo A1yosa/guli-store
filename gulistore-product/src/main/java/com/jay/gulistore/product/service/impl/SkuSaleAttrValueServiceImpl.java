@@ -12,7 +12,6 @@ import com.jay.gulistore.product.dao.SkuSaleAttrValueDao;
 import com.jay.gulistore.product.entity.SkuSaleAttrValueEntity;
 import com.jay.gulistore.product.service.SkuSaleAttrValueService;
 
-
 @Service("skuSaleAttrValueService")
 public class SkuSaleAttrValueServiceImpl extends ServiceImpl<SkuSaleAttrValueDao, SkuSaleAttrValueEntity> implements SkuSaleAttrValueService {
 

@@ -12,7 +12,6 @@ import com.jay.gulistore.product.dao.SpuCommentDao;
 import com.jay.gulistore.product.entity.SpuCommentEntity;
 import com.jay.gulistore.product.service.SpuCommentService;
 
-
 @Service("spuCommentService")
 public class SpuCommentServiceImpl extends ServiceImpl<SpuCommentDao, SpuCommentEntity> implements SpuCommentService {
 

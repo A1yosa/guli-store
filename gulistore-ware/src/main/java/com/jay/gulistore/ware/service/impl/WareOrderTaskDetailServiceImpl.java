@@ -12,7 +12,6 @@ import com.jay.gulistore.ware.dao.WareOrderTaskDetailDao;
 import com.jay.gulistore.ware.entity.WareOrderTaskDetailEntity;
 import com.jay.gulistore.ware.service.WareOrderTaskDetailService;
 
-
 @Service("wareOrderTaskDetailService")
 public class WareOrderTaskDetailServiceImpl extends ServiceImpl<WareOrderTaskDetailDao, WareOrderTaskDetailEntity> implements WareOrderTaskDetailService {
 

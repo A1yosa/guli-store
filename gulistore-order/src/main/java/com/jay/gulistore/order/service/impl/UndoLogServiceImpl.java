@@ -12,7 +12,6 @@ import com.jay.gulistore.order.dao.UndoLogDao;
 import com.jay.gulistore.order.entity.UndoLogEntity;
 import com.jay.gulistore.order.service.UndoLogService;
 
-
 @Service("undoLogService")
 public class UndoLogServiceImpl extends ServiceImpl<UndoLogDao, UndoLogEntity> implements UndoLogService {
 

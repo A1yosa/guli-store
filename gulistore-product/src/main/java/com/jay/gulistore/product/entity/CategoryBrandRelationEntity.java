@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
 
+
 /**
  * 品牌分类关联
  * 

@@ -18,7 +18,6 @@ import com.jay.common.utils.PageUtils;
 import com.jay.common.utils.R;
 
 
-
 /**
  * 优惠券领取历史记录
  *

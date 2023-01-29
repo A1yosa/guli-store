@@ -12,7 +12,6 @@ import com.jay.gulistore.product.dao.AttrGroupDao;
 import com.jay.gulistore.product.entity.AttrGroupEntity;
 import com.jay.gulistore.product.service.AttrGroupService;
 
-
 @Service("attrGroupService")
 public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEntity> implements AttrGroupService {
 

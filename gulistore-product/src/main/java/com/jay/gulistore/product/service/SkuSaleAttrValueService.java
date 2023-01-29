@@ -6,6 +6,7 @@ import com.jay.gulistore.product.entity.SkuSaleAttrValueEntity;
 
 import java.util.Map;
 
+
 /**
  * sku销售属性&值
  *

@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
 
+
 /**
  * sku销售属性&值
  * 

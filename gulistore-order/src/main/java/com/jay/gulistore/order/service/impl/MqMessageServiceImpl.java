@@ -12,7 +12,6 @@ import com.jay.gulistore.order.dao.MqMessageDao;
 import com.jay.gulistore.order.entity.MqMessageEntity;
 import com.jay.gulistore.order.service.MqMessageService;
 
-
 @Service("mqMessageService")
 public class MqMessageServiceImpl extends ServiceImpl<MqMessageDao, MqMessageEntity> implements MqMessageService {
 

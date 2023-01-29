@@ -12,7 +12,6 @@ import com.jay.gulistore.product.dao.ProductAttrValueDao;
 import com.jay.gulistore.product.entity.ProductAttrValueEntity;
 import com.jay.gulistore.product.service.ProductAttrValueService;
 
-
 @Service("productAttrValueService")
 public class ProductAttrValueServiceImpl extends ServiceImpl<ProductAttrValueDao, ProductAttrValueEntity> implements ProductAttrValueService {
 

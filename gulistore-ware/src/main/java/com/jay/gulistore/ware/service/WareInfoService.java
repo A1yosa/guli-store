@@ -6,6 +6,7 @@ import com.jay.gulistore.ware.entity.WareInfoEntity;
 
 import java.util.Map;
 
+
 /**
  * 仓库信息
  *

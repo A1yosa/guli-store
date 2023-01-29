@@ -12,7 +12,6 @@ import com.jay.gulistore.product.dao.SpuInfoDao;
 import com.jay.gulistore.product.entity.SpuInfoEntity;
 import com.jay.gulistore.product.service.SpuInfoService;
 
-
 @Service("spuInfoService")
 public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> implements SpuInfoService {
 

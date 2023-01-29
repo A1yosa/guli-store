@@ -12,7 +12,6 @@ import com.jay.gulistore.order.dao.OrderReturnApplyDao;
 import com.jay.gulistore.order.entity.OrderReturnApplyEntity;
 import com.jay.gulistore.order.service.OrderReturnApplyService;
 
-
 @Service("orderReturnApplyService")
 public class OrderReturnApplyServiceImpl extends ServiceImpl<OrderReturnApplyDao, OrderReturnApplyEntity> implements OrderReturnApplyService {
 

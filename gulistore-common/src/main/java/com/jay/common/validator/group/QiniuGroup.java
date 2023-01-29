@@ -8,7 +8,6 @@
 
 package com.jay.common.validator.group;
 
-
 /**
  * 七牛
  *

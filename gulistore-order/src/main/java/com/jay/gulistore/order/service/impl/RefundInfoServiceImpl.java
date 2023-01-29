@@ -12,7 +12,6 @@ import com.jay.gulistore.order.dao.RefundInfoDao;
 import com.jay.gulistore.order.entity.RefundInfoEntity;
 import com.jay.gulistore.order.service.RefundInfoService;
 
-
 @Service("refundInfoService")
 public class RefundInfoServiceImpl extends ServiceImpl<RefundInfoDao, RefundInfoEntity> implements RefundInfoService {
 

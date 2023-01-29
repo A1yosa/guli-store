@@ -6,6 +6,7 @@ import com.jay.gulistore.product.entity.AttrEntity;
 
 import java.util.Map;
 
+
 /**
  * 商品属性
  *

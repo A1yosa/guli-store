@@ -12,7 +12,6 @@ import com.jay.gulistore.product.dao.CommentReplayDao;
 import com.jay.gulistore.product.entity.CommentReplayEntity;
 import com.jay.gulistore.product.service.CommentReplayService;
 
-
 @Service("commentReplayService")
 public class CommentReplayServiceImpl extends ServiceImpl<CommentReplayDao, CommentReplayEntity> implements CommentReplayService {
 

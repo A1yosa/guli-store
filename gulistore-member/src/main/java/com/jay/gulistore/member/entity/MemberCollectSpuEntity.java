@@ -10,7 +10,6 @@ import lombok.Data;
 /**
  * 会员收藏的商品
  *
- *
  * @author jay
  * @email huanchen659@gmail.com
  * @date 2023-01-20 17:28:50

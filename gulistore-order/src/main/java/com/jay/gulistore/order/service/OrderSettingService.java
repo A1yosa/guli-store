@@ -6,6 +6,7 @@ import com.jay.gulistore.order.entity.OrderSettingEntity;
 
 import java.util.Map;
 
+
 /**
  * 订单配置信息
  *

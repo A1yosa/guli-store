@@ -18,8 +18,7 @@
         <spring-cloud.version>2022.0.0</spring-cloud.version>
     </properties>
     <dependencies>
-
-
+        
         <dependency>
             <groupId>com.Jay.gulistore</groupId>
             <artifactId>gulistore-common</artifactId>

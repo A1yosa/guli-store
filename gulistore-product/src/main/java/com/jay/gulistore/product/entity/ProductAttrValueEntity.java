@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
 
+
 /**
  * spu属性值
  * 

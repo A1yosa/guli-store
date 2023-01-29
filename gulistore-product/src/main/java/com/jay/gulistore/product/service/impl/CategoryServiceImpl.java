@@ -12,7 +12,6 @@ import com.jay.gulistore.product.dao.CategoryDao;
 import com.jay.gulistore.product.entity.CategoryEntity;
 import com.jay.gulistore.product.service.CategoryService;
 
-
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
 

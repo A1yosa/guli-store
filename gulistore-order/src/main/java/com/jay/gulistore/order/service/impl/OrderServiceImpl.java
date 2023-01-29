@@ -12,7 +12,6 @@ import com.jay.gulistore.order.dao.OrderDao;
 import com.jay.gulistore.order.entity.OrderEntity;
 import com.jay.gulistore.order.service.OrderService;
 
-
 @Service("orderService")
 public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> implements OrderService {
 

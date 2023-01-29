@@ -10,7 +10,6 @@ import lombok.Data;
 /**
  * 秒杀商品通知订阅
  *
- *
  * @author jay
  * @email huanchen659@gmail.com
  * @date 2023-01-20 17:05:22

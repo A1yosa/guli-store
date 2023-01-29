@@ -6,6 +6,7 @@ import com.jay.gulistore.ware.entity.WareSkuEntity;
 
 import java.util.Map;
 
+
 /**
  * 商品库存
  *

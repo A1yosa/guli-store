@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
 
+
 /**
  * 订单配置信息
  * 

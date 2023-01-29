@@ -12,7 +12,6 @@ import com.jay.gulistore.order.dao.PaymentInfoDao;
 import com.jay.gulistore.order.entity.PaymentInfoEntity;
 import com.jay.gulistore.order.service.PaymentInfoService;
 
-
 @Service("paymentInfoService")
 public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoDao, PaymentInfoEntity> implements PaymentInfoService {
 

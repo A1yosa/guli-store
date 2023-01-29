@@ -7,7 +7,6 @@ import com.jay.gulistore.order.entity.MqMessageEntity;
 import java.util.Map;
 
 /**
- * 
  *
  * @author jay
  * @email huanchen659@gmail.com

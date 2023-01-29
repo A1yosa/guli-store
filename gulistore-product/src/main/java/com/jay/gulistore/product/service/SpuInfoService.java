@@ -6,6 +6,7 @@ import com.jay.gulistore.product.entity.SpuInfoEntity;
 
 import java.util.Map;
 
+
 /**
  * spu信息
  *

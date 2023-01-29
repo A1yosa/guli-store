@@ -11,7 +11,6 @@ import lombok.Data;
 /**
  * 秒杀活动商品关联
  *
- *
  * @author jay
  * @email huanchen659@gmail.com
  * @date 2023-01-20 17:05:22

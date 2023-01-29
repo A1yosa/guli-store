@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
 
-
 /**
  * 优惠券分类关联
  * 

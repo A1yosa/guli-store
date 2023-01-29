@@ -12,7 +12,6 @@ import com.jay.gulistore.ware.dao.PurchaseDao;
 import com.jay.gulistore.ware.entity.PurchaseEntity;
 import com.jay.gulistore.ware.service.PurchaseService;
 
-
 @Service("purchaseService")
 public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity> implements PurchaseService {
 

@@ -12,7 +12,6 @@ import com.jay.gulistore.ware.dao.WareSkuDao;
 import com.jay.gulistore.ware.entity.WareSkuEntity;
 import com.jay.gulistore.ware.service.WareSkuService;
 
-
 @Service("wareSkuService")
 public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> implements WareSkuService {
 

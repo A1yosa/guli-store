@@ -12,7 +12,6 @@ import com.jay.gulistore.product.dao.SkuImagesDao;
 import com.jay.gulistore.product.entity.SkuImagesEntity;
 import com.jay.gulistore.product.service.SkuImagesService;
 
-
 @Service("skuImagesService")
 public class SkuImagesServiceImpl extends ServiceImpl<SkuImagesDao, SkuImagesEntity> implements SkuImagesService {
 
