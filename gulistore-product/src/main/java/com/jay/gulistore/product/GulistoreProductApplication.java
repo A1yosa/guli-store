@@ -7,6 +7,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 //test
+/*
+* 逻辑删除
+* 1、配置全局的逻辑删除规则（可省略）
+* 2、配置逻辑删除的组件Bean（可省略）
+* 3、给Bean加上逻辑删除注解@TableLogic
+* */
 
 @EnableDiscoveryClient
 @MapperScan("com.jay.gulistore.product.dao")
