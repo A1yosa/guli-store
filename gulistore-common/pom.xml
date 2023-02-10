@@ -94,9 +94,13 @@
 <!--        <dependency>-->
 <!--            <groupId>com.alibaba.cloud</groupId>-->
 <!--            <artifactId>spring-cloud-starter-alicloud-oss</artifactId>-->
-<!--&lt;!&ndash;            <version>2.2.0.RELEASE</version>&ndash;&gt;-->
+<!--            <version>2.1.0.RELEASE</version>-->
 <!--        </dependency>-->
 
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba.cloud</groupId>-->
+<!--            <artifactId>aliyun-oss-spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
         
 
     </dependencies>

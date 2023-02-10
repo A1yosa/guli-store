@@ -45,13 +45,14 @@ spring:
             - RewritePath=/api/(?<segment>.*),/$\{segment}
 
 
-#        - id: third_party_route
-#          uri: lb://gulimall-third-party
-#          predicates:
-#            - Path=/api/thirdparty/**
-#          filters:
-#            - RewritePath=/api/thirdparty/(?<segment>.*),/$\{segment}
+        - id: thirdp_route
+          uri: lb://gulistore-thirdp
+          predicates:
+            - Path=/api/thirdp/**
+          filters:
+            - RewritePath=/api/thirdp/(?<segment>.*),/$\{segment}
 #
+
 #        - id: member_route
 #          uri: lb://gulimall-member
 #          predicates:

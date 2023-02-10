@@ -21,10 +21,10 @@ import java.io.InputStream;
 import java.util.List;
 
 /*
-* 1、引入oss-starter
-* 2、配置key、endpoint相关信息
-* 3、使用OSSClient进行相关操作
-* */
+ * 1、引入oss-starter
+ * 2、配置key、endpoint相关信息
+ * 3、使用OSSClient进行相关操作
+ * */
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = GulistoreProductApplication.class)
@@ -34,39 +34,36 @@ class GulistoreProductApplicationTests {
     BrandService brandService;
 
 
+    /*放弃此测试功能
+
     @Autowired
     OSSClient ossClient;
+
     @Test
     public void testUpload() throws FileNotFoundException {
-//        // Endpoint以华东1（杭州）为例，其它Region请按实际情况填写。
-//        String endpoint = "oss-cn-hangzhou.aliyuncs.com";
-//        // 阿里云账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM用户进行API访问或日常运维，请登录RAM控制台创建RAM用户。
-//        String accessKeyId = "LTAI5tNfd6cAMvkfyGvmE8o4";
-//        String accessKeySecret = "bc0GcCt7YwdGqiFPYQhF2EeZnm5Q4F";
-        // 填写Bucket名称，例如examplebucket。
+        // Endpoint以华东1（杭州）为例，其它Region请按实际情况填写。
+        String endpoint = "oss-cn-hangzhou.aliyuncs.com";
+        // 阿里云账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM用户进行API访问或日常运维，请登录RAM控制台创建RAM用户。
+        String accessKeyId = "LTAI5tNfd6cAMvkfyGvmE8o4";
+        String accessKeySecret = "bc0GcCt7YwdGqiFPYQhF2EeZnm5Q4F";
+        //         填写Bucket名称，例如examplebucket。
         String bucketName = "skdstore";
         // 填写Object完整路径，完整路径中不能包含Bucket名称，例如exampledir/exampleobject.txt。
-        String objectName = "messi.jpg";
+        String objectName = "qw.jpg";
         // 填写本地文件的完整路径，例如D:\\localpath\\examplefile.txt。
-        // 如果未指定本地路径，则默认从示例程序所属项目对应本地路径中上传文件流。
-        String filePath = "C:\\Users\\YELLOW\\Documents\\Tencent Files\\279368894\\FileRecv\\MobileFile\\messi.jpg";
-
-//        // 创建OSSClient实例。
-//        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+        String filePath = "C:\\Users\\YELLOW\\Documents\\Tencent Files\\279368894\\FileRecv\\MobileFile\\qw.jpg";
+        // 创建OSSClient实例。
+        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
 
 
         InputStream inputStream = new FileInputStream(filePath);
         // 创建PutObjectRequest对象。
         ossClient.putObject(bucketName, objectName, inputStream);
-        // 设置该属性可以返回response。如果不设置，则返回的response为空。
-//        putObjectRequest.setProcess("true");
+
         ossClient.shutdown();
-        // 创建PutObject请求。
-//        PutObjectResult result = ossClient.putObject(putObjectRequest);
-        // 如果上传成功，则返回200。
-//        System.out.println(result.getResponse().getStatusCode());
+
         System.out.println("上传成功!");
-    }
+    }*/
 
     @Test
     void contextLoads() {
@@ -89,7 +86,7 @@ class GulistoreProductApplicationTests {
 
         //测试查询
         List<BrandEntity> list = brandService.list(new QueryWrapper<BrandEntity>().eq("brand_id", 6L));
-        list.forEach((item)->{
+        list.forEach((item) -> {
             System.out.println(item);
         });
     }
