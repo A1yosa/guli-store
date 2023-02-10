@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    alicloud:
+      access-key: LTAI5tNfd6cAMvkfyGvmE8o4
+      secret-key: bc0GcCt7YwdGqiFPYQhF2EeZnm5Q4F
+      oss:
+        endpoint: oss-cn-hangzhou.aliyuncs.com
+        bucket: skdstore
+
+  application:
+    name: gulistore-thirdp
+server:
+  port: 30000

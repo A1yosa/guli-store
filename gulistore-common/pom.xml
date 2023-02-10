@@ -65,12 +65,12 @@
             <version>4.0.0</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>io.renren</groupId>
-            <artifactId>renren-fast</artifactId>
-            <version>3.0.0</version>
-            <scope>compile</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.renren</groupId>-->
+<!--            <artifactId>renren-fast</artifactId>-->
+<!--            <version>3.0.0</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
 
 <!--        服务 的注册发现-->
         <dependency>
@@ -90,7 +90,12 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
 
-
+<!--//TODO 版本不对，未解决P62-->
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-alicloud-oss</artifactId>-->
+<!--&lt;!&ndash;            <version>2.2.0.RELEASE</version>&ndash;&gt;-->
+<!--        </dependency>-->
 
         
 
