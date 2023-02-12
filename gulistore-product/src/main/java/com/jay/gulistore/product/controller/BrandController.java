@@ -1,10 +1,12 @@
 package com.jay.gulistore.product.controller;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,8 @@ import com.jay.gulistore.product.entity.BrandEntity;
 import com.jay.gulistore.product.service.BrandService;
 import com.jay.common.utils.PageUtils;
 import com.jay.common.utils.R;
+
+import javax.validation.Valid;
 
 
 /**
@@ -58,8 +62,22 @@ public class BrandController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("product:brand:save")
-    public R save(@RequestBody BrandEntity brand){
-		brandService.save(brand);
+    public R save(@Valid @RequestBody BrandEntity brand /*,BindingResult result*/){
+       /* if (result.hasErrors()){
+            Map<String, String> map = new HashMap<>();
+            //1、获取校验的结果
+            result.getFieldErrors().forEach((item)->{
+                //获取到错误提示
+                String message = item.getDefaultMessage();
+                //获取到错误属性的名字
+                String field = item.getField();
+                map.put(field, message);
+            });
+            return R.error(400,"提交数据不合法").put("data", map);
+        }else{
+            brandService.save(brand);
+        }*/
+        brandService.save(brand);
 
         return R.ok();
     }
