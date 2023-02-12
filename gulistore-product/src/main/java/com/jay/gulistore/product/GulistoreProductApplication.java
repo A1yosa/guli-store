@@ -17,6 +17,11 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 * 1、给bean添加校验注解：javax.valitation.constrains,并定义自己的massage提示
 * 2、开启校验功能@Valid, 校验错误会有默认的响应
 * 3、给校验的bean后加上BindingResult即可拿到校验结果
+* 4、分组校验 略
+* 5、自定义校验
+*       编写一个自定义的校验注解
+*       编写一个自定义的校验器
+*       关联自定义的校验器和自定义的校验注解（可以指定多个不同的校验器，适配不同类型的校验）
 *
 *
 * 统一的异常处理@RestControllerAdvice
