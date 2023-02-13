@@ -11,6 +11,7 @@ import com.jay.common.utils.Query;
 import com.jay.gulistore.product.dao.AttrGroupDao;
 import com.jay.gulistore.product.entity.AttrGroupEntity;
 import com.jay.gulistore.product.service.AttrGroupService;
+import org.springframework.util.StringUtils;
 
 @Service("attrGroupService")
 public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEntity> implements AttrGroupService {
@@ -23,6 +24,29 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public PageUtils queryPage(Map<String, Object> params, long catelogId) {
+
+        if (catelogId == 0){ //如果传过来的id是0，则查询所有属性
+            //this.page两个参数，第一个参数是查询页码信息，其中Query.getPage方法传入一个map，会自动封装成IPage
+            //第二个参数是查询条件，空的wapper就是查询全部
+            IPage<AttrGroupEntity> page = this.page(new Query<AttrGroupEntity>().getPage(params),
+                    new QueryWrapper<AttrGroupEntity>());
+            return new PageUtils(page);
+        }else{
+            String key = (String) params.get("key");
+            QueryWrapper<AttrGroupEntity> wapper = new QueryWrapper<AttrGroupEntity>().eq("catelog_id", catelogId);
+            if (!StringUtils.hasLength(key)){
+                wapper.and((obj)->{
+                    obj.like("attr_group_name", key).or().eq("attr_group_id", key);
+                });
+            }
+            IPage<AttrGroupEntity> page = this.page(new Query<AttrGroupEntity>().getPage(params),
+                    wapper);
+            return new PageUtils(page);
+        }
     }
 
 }
