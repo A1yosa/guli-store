@@ -11,15 +11,24 @@ import com.jay.common.utils.Query;
 import com.jay.gulistore.product.dao.BrandDao;
 import com.jay.gulistore.product.entity.BrandEntity;
 import com.jay.gulistore.product.service.BrandService;
+import org.springframework.util.StringUtils;
 
 @Service("brandService")
 public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> implements BrandService {
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
+//        获取key
+        String key = (String) params.get("key");
+        QueryWrapper<BrandEntity> queryWrapper = new QueryWrapper<>();
+        if(!StringUtils.isEmpty(key)){
+            queryWrapper.eq("brand_id",key).or().like("name",key);
+        }
+
+
         IPage<BrandEntity> page = this.page(
                 new Query<BrandEntity>().getPage(params),
-                new QueryWrapper<BrandEntity>()
+                queryWrapper
         );
 
         return new PageUtils(page);
