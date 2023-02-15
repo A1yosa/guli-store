@@ -1,5 +1,6 @@
 package com.jay.gulistore.product.service.impl;
 
+import com.jay.gulistore.product.service.CategoryBrandRelationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +19,16 @@ import com.jay.common.utils.Query;
 import com.jay.gulistore.product.dao.CategoryDao;
 import com.jay.gulistore.product.entity.CategoryEntity;
 import com.jay.gulistore.product.service.CategoryService;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
 
 //    @Autowired
 //    CategoryDao categoryDao;
+
+    @Autowired
+    CategoryBrandRelationService categoryBrandRelationService;
 
 
     @Override
@@ -74,6 +79,16 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         Collections.reverse(parentPath);
         return parentPath.toArray(new Long[parentPath.size()]);
 
+    }
+
+    /*
+    * 级联更新
+    * */
+    @Transactional
+    @Override
+    public void updateCascade(CategoryEntity category) {
+        this.updateById(category);
+        categoryBrandRelationService.updateCategory(category.getCatId(), category.getName());
     }
 
     //递归查找父节点id
