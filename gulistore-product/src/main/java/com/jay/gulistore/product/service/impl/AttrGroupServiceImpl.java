@@ -67,7 +67,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
      *根据分类id查出所有的分组以及这些分组里面的属性
      *@param:[catelogId]
      *@return:java.util.List<com.xmh.gulimall.product.vo.AttrGroupWithAttrsVo>
-     *@date: 2021/8/16 21:13
+     *@date: 2022/2/16 21:13
      */
     @Override
     public List<AttrGroupWithAttrsVo> getAttrGroupWithAttrsByCatelogId(Long catelogId) {
