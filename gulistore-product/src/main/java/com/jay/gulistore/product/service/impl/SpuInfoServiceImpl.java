@@ -7,10 +7,12 @@ import com.jay.gulistore.product.entity.*;
 import com.jay.gulistore.product.fegin.CouponFeignService;
 import com.jay.gulistore.product.service.*;
 import com.jay.gulistore.product.vo.*;
+import com.mysql.cj.util.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -140,10 +142,15 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                     skuImagesEntity.setDefaultImg(img.getDefaultImg());
 
                     return skuImagesEntity;
+                }).filter(entity -> {
+                    //返回true是需要，返回false是过滤掉
+                    return !StringUtils.isNullOrEmpty(entity.getImgUrl());
                 }).collect(Collectors.toList());
+
 
                 //6.2、sku的图片信息`pms_sku_images`
                 skuImagesService.saveBatch(imagesEntities);
+
 
                 //6.3、sku的销售属性信息`pms_sku_sale_attr_value`
                 List<Attr> attr = item.getAttr();
@@ -162,10 +169,13 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                 SkuReductionTo skuReductionTo = new SkuReductionTo();
                 BeanUtils.copyProperties(item, skuReductionTo);
                 skuReductionTo.setSkuId(skuId);
-                R r1 = couponFeignService.saveSkuReduction(skuReductionTo);
-                if (r1.getCode() != 0){
-                    log.error("远程保存优惠信息失败");
+                if (skuReductionTo.getFullCount() > 0 || skuReductionTo.getFullPrice().compareTo(new BigDecimal("0")) == 1){
+                    R r1 = couponFeignService.saveSkuReduction(skuReductionTo);
+                    if (r1.getCode() != 0){
+                        log.error("远程保存优惠信息失败");
+                    }
                 }
+
             });
         }
 
