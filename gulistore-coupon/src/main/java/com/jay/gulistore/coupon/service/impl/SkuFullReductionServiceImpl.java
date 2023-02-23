@@ -55,10 +55,9 @@ public class SkuFullReductionServiceImpl extends ServiceImpl<SkuFullReductionDao
         skuLadderEntity.setFullCount(reductionTo.getFullCount());
         skuLadderEntity.setDiscount(reductionTo.getDiscount());
 
-        if (reductionTo.getFullCount() >0 ){
+        if (reductionTo.getFullCount() > 0) {
             skuLadderService.save(skuLadderEntity);
         }
-
 
 
         //2、保存满减信息 sms_sku_full_reduction
@@ -67,28 +66,30 @@ public class SkuFullReductionServiceImpl extends ServiceImpl<SkuFullReductionDao
 //        reductionEntity.setFullPrice(skuReductionTo.getFullPrice());
 //        reductionEntity.setReducePrice(skuReductionTo.getReducePrice());
 //        reductionEntity.setAddOther(skuReductionTo.getPriceStatus());
-        BeanUtils.copyProperties(reductionTo,reductionEntity);
+        BeanUtils.copyProperties(reductionTo, reductionEntity);
 
-        if (reductionEntity.getFullPrice().compareTo(new BigDecimal("0"))==1){
+        if (reductionEntity.getFullPrice().compareTo(new BigDecimal("0")) == 1) {
             this.save(reductionEntity);
         }
 
 
-
-
         //3、保存会员价格 sms_member_price
+//        ToDo 满减为空问题
         List<MemberPrice> memberPrice = reductionTo.getMemberPrice();
-        List<MemberPriceEntity> collect = memberPrice.stream().map(item -> {
-            MemberPriceEntity priceEntity = new MemberPriceEntity();
-            priceEntity.setSkuId(reductionTo.getSkuId());
-            priceEntity.setMemberLevelId(item.getId());
-            priceEntity.setMemberPrice(item.getPrice());
-            priceEntity.setMemberLevelName(item.getName());
-            priceEntity.setAddOther(1);
-            return priceEntity;
-        }).filter(item->{
-            return item.getMemberPrice().compareTo(new BigDecimal("0")) ==1;
-        }).collect(Collectors.toList());
+        List<MemberPriceEntity> collect = null;
+        if (memberPrice != null) {
+            collect = memberPrice.stream().map(item -> {
+                MemberPriceEntity priceEntity = new MemberPriceEntity();
+                priceEntity.setSkuId(reductionTo.getSkuId());
+                priceEntity.setMemberLevelId(item.getId());
+                priceEntity.setMemberPrice(item.getPrice());
+                priceEntity.setMemberLevelName(item.getName());
+                priceEntity.setAddOther(1);
+                return priceEntity;
+            }).filter(item -> {
+                return item.getMemberPrice().compareTo(new BigDecimal("0")) == 1;
+            }).collect(Collectors.toList());
+        }
         memberPriceService.saveBatch(collect);
 
     }

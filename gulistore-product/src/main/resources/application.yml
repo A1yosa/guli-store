@@ -14,8 +14,19 @@ spring:
       secret-key: bc0GcCt7YwdGqiFPYQhF2EeZnm5Q4F
       oss:
         endpoint: oss-cn-hangzhou.aliyuncs.com
+#    loadbalancer:
+#      cache:
+#        enabled: true
+#        caffeine:
+#          spec: initialCapacity=500,expireAfterWrite=5s
+
   application:
     name: gulistore-product
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+
 
 # MapperScan
 # sql映射文件位置
@@ -33,9 +44,10 @@ logging:
   level:
     com.jay.gulistore: debug
 
+
 feign:
   client:
     config:
       default:
-        connectTimeout: 10000
-        readTimeout: 600000
+        connectTimeout:
+        readTimeout: 60000

@@ -21,3 +21,9 @@
 #
 #server:
 #  port: 7000
+feign:
+  client:
+    config:
+      default:
+        connectTimeout:
+        readTimeout: 60000

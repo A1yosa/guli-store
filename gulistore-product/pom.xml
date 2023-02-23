@@ -24,6 +24,12 @@
             <groupId>com.Jay.gulistore</groupId>
             <artifactId>gulistore-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-netflix-ribbon</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 <!--在common中导入失败-->
 <!--        <dependency>-->
