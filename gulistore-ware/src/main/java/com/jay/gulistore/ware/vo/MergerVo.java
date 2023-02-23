@@ -1,0 +1,11 @@
+package com.jay.gulistore.ware.vo;
+
+import lombok.Data;
+
+import java.util.List;
+
+@Data
+public class MergerVo {
+    private Long purchaseId; //整单id
+    private List<Long> items; //合并项集合
+}

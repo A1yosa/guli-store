@@ -12,6 +12,9 @@ spring:
   application:
     name: gulistore-ware
 
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
 # MapperScan
 # sql映射文件位置
 mybatis-plus:
@@ -23,3 +26,7 @@ mybatis-plus:
 
 server:
   port: 11000
+
+logging:
+  level:
+    com.jay: debug
