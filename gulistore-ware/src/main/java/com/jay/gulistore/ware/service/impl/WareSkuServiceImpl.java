@@ -1,6 +1,9 @@
 package com.jay.gulistore.ware.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -15,6 +18,9 @@ import org.springframework.util.StringUtils;
 
 @Service("wareSkuService")
 public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> implements WareSkuService {
+
+    @Autowired
+    WareSkuDao wareSkuDao;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -37,6 +43,25 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
         );
 
         return new PageUtils(page);
+
+    }
+
+    @Override
+    public void addStock(Long skuId, Long wareId, String skuName, Integer skuNum) {
+//        判断，若没有库存记录则新增
+        WareSkuEntity wareSkuEntity = this.baseMapper.selectOne(new QueryWrapper<WareSkuEntity>().eq("sku_id", skuId).eq("ware_id", wareId));
+        if (wareSkuEntity == null){
+            //新增
+            wareSkuEntity = new WareSkuEntity();
+            wareSkuEntity.setStock(skuNum);
+        }else {
+            wareSkuEntity.setStock(wareSkuEntity.getStock() + skuNum);
+        }
+        wareSkuEntity.setSkuName(skuName);
+        wareSkuEntity.setWareId(wareId);
+        wareSkuEntity.setSkuId(skuId);
+
+        this.saveOrUpdate(wareSkuEntity);
 
     }
 

@@ -2,12 +2,18 @@ package com.jay.gulistore.ware.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.jay.common.constant.WareConstant;
+import com.jay.common.utils.R;
 import com.jay.gulistore.ware.entity.PurchaseDetailEntity;
+import com.jay.gulistore.ware.feign.ProductFeignService;
 import com.jay.gulistore.ware.service.PurchaseDetailService;
+import com.jay.gulistore.ware.service.WareSkuService;
 import com.jay.gulistore.ware.vo.MergerVo;
+import com.jay.gulistore.ware.vo.PurchaseDoneVo;
+import com.jay.gulistore.ware.vo.PurchaseItemDoneVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +35,12 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity
 
     @Autowired
     private PurchaseDetailService detailService;
+
+    @Autowired
+    private WareSkuService wareSkuService;
+
+    @Autowired
+    private ProductFeignService productFeignService;
 
 
     @Override
@@ -118,6 +130,48 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity
         purchaseDetailEntity.setStatus(WareConstant.PurchaseDetailStatusEnum.BUYING.getCode());
         detailService.update(purchaseDetailEntity, updateWrapper);
 
+    }
+
+    @Transactional
+    @Override
+    public void done(PurchaseDoneVo vo) {
+        //1、根据前端发过来的信息，更新采购需求的状态
+        List<PurchaseItemDoneVo> items = vo.getItems();
+        List<PurchaseDetailEntity> updateList = new ArrayList<>();
+        boolean flag = true;
+        for (PurchaseItemDoneVo item : items){
+            Long detailId = item.getItemId();
+            PurchaseDetailEntity detailEntity = detailService.getById(detailId);
+            detailEntity.setStatus(item.getStatus());
+            //采购需求失败
+            if (item.getStatus() == WareConstant.PurchaseDetailStatusEnum.HASERROR.getCode()){
+                flag = false;
+            }else {
+                //3、根据采购需求的状态，更新库存
+                // sku_id, sku_num, ware_id
+                // sku_id, ware_id, stock sku_name(调用远程服务获取), stock_locked(先获取已经有的库存，再加上新购买的数量)
+                String skuName = "";
+                try {
+                    R info = productFeignService.info(detailEntity.getSkuId());
+                    if(info.getCode() == 0){
+                        Map<String,Object> data=(Map<String,Object>)info.get("skuInfo");
+                        skuName = (String) data.get("skuName");
+                    }
+                } catch (Exception e) {
+
+                }
+                //更新库存
+                wareSkuService.addStock(detailEntity.getSkuId(), detailEntity.getWareId(), skuName, detailEntity.getSkuNum());
+            }
+            updateList.add(detailEntity);
+        }
+        //保存采购需求
+        detailService.updateBatchById(updateList);
+        //2、根据采购需求的状态，更新采购单的状态
+        PurchaseEntity purchaseEntity = new PurchaseEntity();
+        purchaseEntity.setId(vo.getId());
+        purchaseEntity.setStatus(flag ? WareConstant.PurchaseStatusEnum.FINISH.getCode() : WareConstant.PurchaseStatusEnum.HASERROR.getCode());
+        this.updateById(purchaseEntity);
     }
 
 }
