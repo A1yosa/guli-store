@@ -14,7 +14,13 @@ spring:
       secret-key: bc0GcCt7YwdGqiFPYQhF2EeZnm5Q4F
       oss:
         endpoint: oss-cn-hangzhou.aliyuncs.com
-#    loadbalancer:
+
+  thymeleaf:
+    cache: false
+    suffix: .html
+    prefix: classpath:/templates/
+
+  #    loadbalancer:
 #      cache:
 #        enabled: true
 #        caffeine:

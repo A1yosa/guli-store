@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestControllerAdvice(basePackages = "com.jay.gulistore.product.controller")
+@RestControllerAdvice(basePackages = "com.jay.gulistore.product.app")
 public class GulistoreExceptionControllerAdvice {
 
     protected Log log = LogFactory.getLog(getClass());
