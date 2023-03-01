@@ -20,6 +20,11 @@ spring:
     suffix: .html
     prefix: classpath:/templates/
 
+
+  redis:
+    host: 192.168.56.10
+    port: 6379
+
   #    loadbalancer:
 #      cache:
 #        enabled: true

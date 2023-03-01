@@ -1,8 +1,13 @@
 package com.jay.gulistore.product.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.jay.gulistore.product.service.CategoryBrandRelationService;
 import com.jay.gulistore.product.vo.Catelog2Vo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,6 +26,7 @@ import com.jay.gulistore.product.dao.CategoryDao;
 import com.jay.gulistore.product.entity.CategoryEntity;
 import com.jay.gulistore.product.service.CategoryService;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
@@ -30,6 +36,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     @Autowired
     CategoryBrandRelationService categoryBrandRelationService;
+
+    @Autowired
+    private StringRedisTemplate redisTemplate;
 
 
     @Override
@@ -84,7 +93,10 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     /*
     * 级联更新
+    * 缓存失效
     * */
+    @Cacheable(value = {"category"}, key = "#root.methodName")
+    @CacheEvict(value = {"category"},allEntries = true)
     @Transactional
     @Override
     public void updateCascade(CategoryEntity category) {
@@ -92,6 +104,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         categoryBrandRelationService.updateCategory(category.getCatId(), category.getName());
     }
 
+//    指定缓存分区。每一个需要缓存的数据，我们都需要来指定要放到哪个名字的缓存中。通常按照业务类型进行划分
+    @Cacheable(value = {"category"},key = "#root.methodName")      //可缓存,表示当前方法需要将进行缓存，如果缓存中有，方法无效调用，如果缓存中没有，则会调用方法，最后将方法的结果放入到缓存中。
     @Override
     public List<CategoryEntity> getLevel1Category() {
 
@@ -109,8 +123,106 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
      * @return
      */
 
+    //    todo 删除缓存操作
+    @Cacheable(value = {"category"},key = "#root.methodName")
     @Override
     public Map<String, List<Catelog2Vo>> getCatelogJson() {
+        System.out.println("查询数据库");
+        /*//一次性查询出所有的分类数据，减少对于数据库的访问次数，后面的数据操作并不是到数据库中查询，而是直接从这个集合中获取，
+        // 由于分类信息的数据量并不大，所以这种方式是可行的
+        List<CategoryEntity> categoryEntities = this.baseMapper.selectList(null);
+
+        //1.查出所有一级分类
+        List<CategoryEntity> level1Categories = getParent_cid(categoryEntities,0L);
+
+        Map<String, List<Catelog2Vo>> parent_cid = level1Categories.stream().collect(Collectors.toMap(k -> k.getCatId().toString(), level1 -> {
+            //2. 根据一级分类的id查找到对应的二级分类
+            List<CategoryEntity> level2Categories = getParent_cid(categoryEntities,level1.getCatId());
+
+            //3. 根据二级分类，查找到对应的三级分类
+            List<Catelog2Vo> catelog2Vos =null;
+
+            if(null != level2Categories || level2Categories.size() > 0){
+                catelog2Vos = level2Categories.stream().map(level2 -> {
+                    //得到对应的三级分类
+                    List<CategoryEntity> level3Categories = getParent_cid(categoryEntities,level2.getCatId());
+                    //封装到Catalog3List
+                    List<Catalog3List> catalog3Lists = null;
+                    if (null != level3Categories) {
+                        catalog3Lists = level3Categories.stream().map(level3 -> {
+                            Catalog3List catalog3List = new Catalog3List(level2.getCatId().toString(), level3.getCatId().toString(), level3.getName());
+                            return catalog3List;
+                        }).collect(Collectors.toList());
+                    }
+                    return new Catelog2Vo(level1.getCatId().toString(), catalog3Lists, level2.getCatId().toString(), level2.getName());
+                }).collect(Collectors.toList());
+            }
+
+            return catelog2Vos;
+        }));
+        return parent_cid;*/
+        System.out.println("查询了数据库");
+        List<CategoryEntity> selectList = baseMapper.selectList(null);
+
+        List<CategoryEntity> category = getParent_cid(selectList, 0L);
+
+        //2、封装数据
+        Map<String, List<Catelog2Vo>> parent_cid = category.stream().collect(Collectors.toMap(k -> k.getCatId().toString(), v -> {
+            //1、查到这个一级分类下的所有二级分类
+            List<CategoryEntity> categoryEntities = getParent_cid(selectList, v.getCatId());
+
+            //2、封装上面的结果
+            List<Catelog2Vo> catalog2Vos = new ArrayList<>();
+            if (categoryEntities != null && categoryEntities.size() != 0) {
+                catalog2Vos = categoryEntities.stream().map(l2 -> {
+                    Catelog2Vo catalog2Vo = new Catelog2Vo(
+                            l2.getParentCid().toString(), null, l2.getCatId().toString(), l2.getName());
+                    //1、找当前二级分类的三级分类封装成vo
+                    List<CategoryEntity> level3Catalog = getParent_cid(selectList, l2.getCatId());
+                    List<Catelog2Vo.Catelog3Vo> collectlevel3 = new ArrayList<>();
+                    if (level3Catalog != null && !level3Catalog.isEmpty()) {
+                        //2、封装成指定格式
+                        collectlevel3 = level3Catalog.stream().map(l3 -> {
+                            Catelog2Vo.Catelog3Vo catalog3Vo = new Catelog2Vo.Catelog3Vo(l3.getParentCid().toString(),
+                                    l3.getCatId().toString(), l3.getName());
+                            return catalog3Vo;
+                        }).collect(Collectors.toList());
+                    }
+                    catalog2Vo.setCatelog3List(collectlevel3);
+                    return catalog2Vo;
+                }).collect(Collectors.toList());
+            }
+            return catalog2Vos;
+        }));
+
+        return parent_cid;
+    }
+//    todo 删除缓存操作
+//    @Override
+    public Map<String, List<Catelog2Vo>> getCatelogJson2() {
+
+        //给缓存中放json字符串，拿出json字符串，还要逆转为能用的对象类型【序列化与反序列化】
+        //1、加入缓存逻辑
+        //JSON好处是跨语言，跨平台兼容。
+        String catalogJSON = redisTemplate.opsForValue().get("catalogJSON");
+        if (StringUtils.isEmpty(catalogJSON)){
+            //2、缓存中没有，查询数据库
+            Map<String, List<Catelog2Vo>> catelogJsonFromDB = getCatelogJsonFromDb();
+            //3、将查到的数据再放入缓存，将对象转为JSON在缓存中
+            String jsonString = JSON.toJSONString(catelogJsonFromDB);
+            redisTemplate.opsForValue().set("catalogJSON",jsonString);
+            return catelogJsonFromDB;
+        }
+
+        //转为我们指定的对象。
+        Map<String,List<Catelog2Vo>> result = JSON.parseObject(catalogJSON,new TypeReference<Map<String,List<Catelog2Vo>>>(){});
+        return result;
+
+    }
+
+
+//    从数据库查询并封装分类数据
+    public Map<String, List<Catelog2Vo>> getCatelogJsonFromDb() {
 
         List<CategoryEntity> selectList = baseMapper.selectList(null);
 
