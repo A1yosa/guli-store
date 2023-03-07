@@ -7,6 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @EnableDiscoveryClient
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+//@SpringBootApplication(scanBasePackages="com.jay.gulistore.search.controller",exclude = DataSourceAutoConfiguration.class)
 public class GulistoreSearchApplication {
 
     public static void main(String[] args) {

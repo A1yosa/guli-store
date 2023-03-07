@@ -79,8 +79,12 @@ spring:
         - id: gulistore_host_route
           uri: lb://gulistore-product
           predicates:
-            - Host=**.sukestore.com
+            - Host=sukestore.com
 
+        - id: gulistore_search_route
+          uri: lb://gulistore-search
+          predicates:
+            - Host=search.sukestore.com
 #         前端项目，/api
 #http://localhost:88/api/captcha.jpg              http://localhost:8080/renren-fast/captcha.jpg
 

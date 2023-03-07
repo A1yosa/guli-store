@@ -95,7 +95,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     * 级联更新
     * 缓存失效
     * */
-    @Cacheable(value = {"category"}, key = "#root.methodName")
+//    @Cacheable(value = {"category"}, key = "#root.methodName")
     @CacheEvict(value = {"category"},allEntries = true)
     @Transactional
     @Override
@@ -146,15 +146,15 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                 catelog2Vos = level2Categories.stream().map(level2 -> {
                     //得到对应的三级分类
                     List<CategoryEntity> level3Categories = getParent_cid(categoryEntities,level2.getCatId());
-                    //封装到Catalog3List
-                    List<Catalog3List> catalog3Lists = null;
+                    //封装到catelog3List
+                    List<catelog3List> catelog3Lists = null;
                     if (null != level3Categories) {
-                        catalog3Lists = level3Categories.stream().map(level3 -> {
-                            Catalog3List catalog3List = new Catalog3List(level2.getCatId().toString(), level3.getCatId().toString(), level3.getName());
-                            return catalog3List;
+                        catelog3Lists = level3Categories.stream().map(level3 -> {
+                            catelog3List catelog3List = new catelog3List(level2.getCatId().toString(), level3.getCatId().toString(), level3.getName());
+                            return catelog3List;
                         }).collect(Collectors.toList());
                     }
-                    return new Catelog2Vo(level1.getCatId().toString(), catalog3Lists, level2.getCatId().toString(), level2.getName());
+                    return new Catelog2Vo(level1.getCatId().toString(), catelog3Lists, level2.getCatId().toString(), level2.getName());
                 }).collect(Collectors.toList());
             }
 
@@ -172,27 +172,27 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
             List<CategoryEntity> categoryEntities = getParent_cid(selectList, v.getCatId());
 
             //2、封装上面的结果
-            List<Catelog2Vo> catalog2Vos = new ArrayList<>();
+            List<Catelog2Vo> catelog2Vos = new ArrayList<>();
             if (categoryEntities != null && categoryEntities.size() != 0) {
-                catalog2Vos = categoryEntities.stream().map(l2 -> {
-                    Catelog2Vo catalog2Vo = new Catelog2Vo(
+                catelog2Vos = categoryEntities.stream().map(l2 -> {
+                    Catelog2Vo catelog2Vo = new Catelog2Vo(
                             l2.getParentCid().toString(), null, l2.getCatId().toString(), l2.getName());
                     //1、找当前二级分类的三级分类封装成vo
-                    List<CategoryEntity> level3Catalog = getParent_cid(selectList, l2.getCatId());
+                    List<CategoryEntity> level3catelog = getParent_cid(selectList, l2.getCatId());
                     List<Catelog2Vo.Catelog3Vo> collectlevel3 = new ArrayList<>();
-                    if (level3Catalog != null && !level3Catalog.isEmpty()) {
+                    if (level3catelog != null && !level3catelog.isEmpty()) {
                         //2、封装成指定格式
-                        collectlevel3 = level3Catalog.stream().map(l3 -> {
-                            Catelog2Vo.Catelog3Vo catalog3Vo = new Catelog2Vo.Catelog3Vo(l3.getParentCid().toString(),
+                        collectlevel3 = level3catelog.stream().map(l3 -> {
+                            Catelog2Vo.Catelog3Vo catelog3Vo = new Catelog2Vo.Catelog3Vo(l3.getParentCid().toString(),
                                     l3.getCatId().toString(), l3.getName());
-                            return catalog3Vo;
+                            return catelog3Vo;
                         }).collect(Collectors.toList());
                     }
-                    catalog2Vo.setCatelog3List(collectlevel3);
-                    return catalog2Vo;
+                    catelog2Vo.setCatelog3List(collectlevel3);
+                    return catelog2Vo;
                 }).collect(Collectors.toList());
             }
-            return catalog2Vos;
+            return catelog2Vos;
         }));
 
         return parent_cid;
@@ -204,18 +204,18 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         //给缓存中放json字符串，拿出json字符串，还要逆转为能用的对象类型【序列化与反序列化】
         //1、加入缓存逻辑
         //JSON好处是跨语言，跨平台兼容。
-        String catalogJSON = redisTemplate.opsForValue().get("catalogJSON");
-        if (StringUtils.isEmpty(catalogJSON)){
+        String catelogJSON = redisTemplate.opsForValue().get("catelogJSON");
+        if (StringUtils.isEmpty(catelogJSON)){
             //2、缓存中没有，查询数据库
             Map<String, List<Catelog2Vo>> catelogJsonFromDB = getCatelogJsonFromDb();
             //3、将查到的数据再放入缓存，将对象转为JSON在缓存中
             String jsonString = JSON.toJSONString(catelogJsonFromDB);
-            redisTemplate.opsForValue().set("catalogJSON",jsonString);
+            redisTemplate.opsForValue().set("catelogJSON",jsonString);
             return catelogJsonFromDB;
         }
 
         //转为我们指定的对象。
-        Map<String,List<Catelog2Vo>> result = JSON.parseObject(catalogJSON,new TypeReference<Map<String,List<Catelog2Vo>>>(){});
+        Map<String,List<Catelog2Vo>> result = JSON.parseObject(catelogJSON,new TypeReference<Map<String,List<Catelog2Vo>>>(){});
         return result;
 
     }

@@ -1,4 +1,4 @@
-package com.jay.gulistore.search.impl;
+package com.jay.gulistore.search.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.jay.common.to.es.SkuEsModel;
