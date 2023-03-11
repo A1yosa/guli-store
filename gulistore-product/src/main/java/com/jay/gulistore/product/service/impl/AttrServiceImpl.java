@@ -22,6 +22,7 @@ import com.jay.gulistore.product.vo.AttrRespVo;
 import com.jay.gulistore.product.vo.AttrVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -128,6 +129,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         return pageUtils;
     }
 
+    @Cacheable(value = "attr" , key = "'attrinfo:'+#root.args[0]")
     @Override
     public AttrRespVo getAttrInfo(Long attrId) {
         AttrRespVo respVo = new AttrRespVo();

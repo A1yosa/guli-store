@@ -26,16 +26,16 @@ public class SearchResult {
 
 
     //面包屑导航数据
-//    private List<NavVo> navs = new ArrayList<>();
-//    private List<Long> attrIds = new ArrayList<>();
+    private List<NavVo> navs = new ArrayList<>();
+    private List<Long> attrIds = new ArrayList<>();
 
 
-//    @Data
-//    public static class NavVo{
-//        private String navName;
-//        private String navValue;
-//        private String link;
-//    }
+    @Data
+    public static class NavVo{
+        private String navName;
+        private String navValue;
+        private String link;
+    }
 
 
 

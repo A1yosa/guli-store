@@ -1,10 +1,15 @@
 package com.jay.gulistore.search.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.jay.common.to.es.SkuEsModel;
+import com.jay.common.utils.R;
 import com.jay.gulistore.search.config.GulistoreElasticSearchConfig;
 import com.jay.gulistore.search.constant.EsConstant;
+import com.jay.gulistore.search.feign.ProductFeignService;
 import com.jay.gulistore.search.service.MallSearchService;
+import com.jay.gulistore.search.vo.AttrResponseVo;
+import com.jay.gulistore.search.vo.BrandVo;
 import com.jay.gulistore.search.vo.SearchParam;
 import com.jay.gulistore.search.vo.SearchResult;
 import org.apache.commons.lang.StringUtils;
@@ -33,6 +38,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,6 +49,9 @@ public class MallSearchServiceImpl implements MallSearchService {
 
     @Autowired
     private RestHighLevelClient client;
+
+    @Autowired
+    ProductFeignService productFeignService;
 
 //    @Override
 //    public SearchResult search(SearchParam param) {
@@ -487,6 +497,7 @@ public class MallSearchServiceImpl implements MallSearchService {
             attrVo.setAttrId(attrId);
             attrVo.setAttrName(attrName);
             attrVo.setAttrValue(attrValues);
+//            result.getAttrIds().add(attrId);
             attrVos.add(attrVo);
         }
 
@@ -535,7 +546,81 @@ public class MallSearchServiceImpl implements MallSearchService {
         //7、分页信息-总页码-计算
         int totalPages = total%EsConstant.PRODUCT_PAGESIZE == 0 ?(int) total/EsConstant.PRODUCT_PAGESIZE:((int)total/EsConstant.PRODUCT_PAGESIZE+1);
         result.setTotalPages(totalPages);
+
+        List<Integer> pageNavs = new ArrayList<>();
+        for(int i = 1; i<=totalPages;i++){
+            pageNavs.add(i);
+        }
+        result.setPageNavs(pageNavs);
+
+
+        // 6.构建面包屑导航功能
+        if(param.getAttrs() != null && param.getAttrs().size()>0){
+            List<SearchResult.NavVo> collect = param.getAttrs().stream().map(attr -> {
+                SearchResult.NavVo navVo = new SearchResult.NavVo();
+                String[] s = attr.split("_");
+                navVo.setNavValue(s[1]);
+                R r = productFeignService.getAttrsInfo(Long.parseLong(s[0]));
+                // 将已选择的请求参数添加进去 前端页面进行排除
+                result.getAttrIds().add(Long.parseLong(s[0]));
+                if(r.getCode() == 0){
+                    AttrResponseVo data = r.getData("attr",new TypeReference<AttrResponseVo>(){});
+                    navVo.setNavName(data.getAttrName());
+                }else{
+                    // 失败了就拿id作为名字
+                    navVo.setNavName(s[0]);
+                }
+                // 拿到所有查询条件 替换查询条件
+                String replace = replaceQueryString(param, attr, "attrs");
+//                String replace = param.get_queryString().replace("&attrs="+attr,"");
+                navVo.setLink("http://search.sukestore.com/list.html?" + replace);
+                return navVo;
+            }).collect(Collectors.toList());
+            result.setNavs(collect);
+        }
+
+        // 品牌、分类
+        if(param.getBrandId() != null && param.getBrandId().size() > 0){
+            List<SearchResult.NavVo> navs = result.getNavs();
+            SearchResult.NavVo navVo = new SearchResult.NavVo();
+            navVo.setNavName("品牌");
+            // TODO 远程查询所有品牌
+            R r = productFeignService.brandsInfo(param.getBrandId());
+            if(r.getCode() == 0){
+                List<BrandVo> brand = r.getData("brand", new TypeReference<List<BrandVo>>() {});
+                StringBuffer buffer = new StringBuffer();
+                // 替换所有品牌ID
+                String replace = "";
+                for (BrandVo brandVo : brand) {
+                    buffer.append(brandVo.getBrandName() + ";");
+                    replace = replaceQueryString(param, brandVo.getBrandId() + "", "brandId");
+                }
+                navVo.setNavValue(buffer.toString());
+                navVo.setLink("http://search.sukestore.com/list.html?" + replace);
+            }
+            navs.add(navVo);
+        }
+
+
         return result;
+    }
+
+
+    /**
+     * 替换字符
+     * key ：需要替换的key
+     */
+    private String replaceQueryString(SearchParam param, String value, String key) {
+        String encode = null;
+        try {
+            encode = URLEncoder.encode(value,"UTF-8");
+            // 浏览器对空格的编码和java的不一样
+            encode = encode.replace("+","%20");
+//            encode = encode.replace("%28", "(").replace("%29",")");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return param.get_queryString().replace("&" + key + "=" + encode, "");
     }
 
 }

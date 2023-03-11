@@ -24,7 +24,9 @@ public class SearchController {
     MallSearchService mallSearchService;
 
     @GetMapping("/list.html")
-    public String listPage(SearchParam param , Model model){
+    public String listPage(SearchParam param , Model model,HttpServletRequest request){
+
+        param.set_queryString(request.getQueryString());
         SearchResult result = mallSearchService.search(param);
         System.out.println("===================="+result);
         model.addAttribute("result",result);
