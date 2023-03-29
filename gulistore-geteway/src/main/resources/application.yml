@@ -79,7 +79,7 @@ spring:
         - id: gulistore_host_route
           uri: lb://gulistore-product
           predicates:
-            - Host=sukestore.com
+            - Host=sukestore.com,item.sukestore.com
 
         - id: gulistore_search_route
           uri: lb://gulistore-search

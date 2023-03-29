@@ -1221,7 +1221,7 @@
                                 <!--                                    &lt;!&ndash;图片 &ndash;&gt;-->
                                 <!--                                    <img   class="dim" th:src="${product.skuImg}">-->
                                 <!--                                </a>-->
-                                <a href="#">
+                                <a th:href="|http://item.sukestore.com/${product.skuId}.html|">
                                     <img th:src="${product.skuImg}" class="dim">
                                 </a>
                             </p>
