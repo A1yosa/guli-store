@@ -7,6 +7,7 @@ import com.jay.gulistore.product.vo.SkuItemVo;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -26,7 +27,7 @@ public interface SkuInfoService extends IService<SkuInfoEntity> {
 
     List<SkuInfoEntity> getSkusBySpuId(Long spuId);
 
-    SkuItemVo item(Long skuId);
+    SkuItemVo item(Long skuId) throws ExecutionException, InterruptedException;
 
 }
 
