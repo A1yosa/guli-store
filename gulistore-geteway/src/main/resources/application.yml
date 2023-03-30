@@ -85,6 +85,11 @@ spring:
           uri: lb://gulistore-search
           predicates:
             - Host=search.sukestore.com
+
+        - id: gulistore_auth_route
+          uri: lb://gulistore-auth-server
+          predicates:
+            - Host=auth.sukestore.com
 #         前端项目，/api
 #http://localhost:88/api/captcha.jpg              http://localhost:8080/renren-fast/captcha.jpg
 
