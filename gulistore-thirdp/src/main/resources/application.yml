@@ -13,6 +13,11 @@ spring:
       oss:
         endpoint: oss-cn-hangzhou.aliyuncs.com
         bucket: skdstore
+
+      sms:
+        host: https://gyytz.market.alicloudapi.com
+        path: /sms/smsSend
+        app-code: 04cb6e19104443a8b53b849de7b14ada
       access-key: LTAI5tNfd6cAMvkfyGvmE8o4
       secret-key: bc0GcCt7YwdGqiFPYQhF2EeZnm5Q4F
 

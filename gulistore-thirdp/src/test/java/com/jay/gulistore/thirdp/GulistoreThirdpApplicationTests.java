@@ -1,6 +1,7 @@
 package com.jay.gulistore.thirdp;
 
 import com.aliyun.oss.OSSClient;
+import com.jay.gulistore.thirdp.component.SmsComponent;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +19,14 @@ class GulistoreThirdpApplicationTests {
 
     @Autowired
     OSSClient ossClient;
+
+	@Autowired
+	SmsComponent smsComponent;
+
+	@Test
+	public void testSendCode(){
+        smsComponent.sendSmsCode("13063763520","000000");
+    }
 
     @Test
     public void testUpload() throws FileNotFoundException {
