@@ -90,6 +90,26 @@ spring:
           uri: lb://gulistore-auth-server
           predicates:
             - Host=auth.sukestore.com
+
+        - id: gulistore_cart_route
+          uri: lb://gulistore-cart
+          predicates:
+            - Host=cart.sukestore.com
+
+        - id: gulistore_order_route
+          uri: lb://gulistore-order
+          predicates:
+            - Host=order.sukestore.com
+
+        - id: gulistore_member_route
+          uri: lb://gulistore-member
+          predicates:
+            - Host=member.sukestore.com
+
+        - id: gulistore_seckill_route
+          uri: lb://gulistore-seckill
+          predicates:
+            - Host=seckill.sukestore.com
 #         前端项目，/api
 #http://localhost:88/api/captcha.jpg              http://localhost:8080/renren-fast/captcha.jpg
 
