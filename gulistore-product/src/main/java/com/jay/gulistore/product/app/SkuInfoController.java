@@ -5,11 +5,7 @@ import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.jay.gulistore.product.entity.SkuInfoEntity;
 import com.jay.gulistore.product.service.SkuInfoService;
@@ -29,6 +25,20 @@ import com.jay.common.utils.R;
 public class SkuInfoController {
     @Autowired
     private SkuInfoService skuInfoService;
+
+
+    /**
+     * 获取指定商品的价格
+     * @param skuId
+     * @return
+     */
+    @GetMapping("/{skuId}/price")
+    public R getPrice(@PathVariable("skuId") Long skuId){
+        SkuInfoEntity skuInfoEntity = skuInfoService.getById(skuId);
+        return R.ok().setData(skuInfoEntity.getPrice().toString());
+    }
+
+
 
     /**
      * 列表
