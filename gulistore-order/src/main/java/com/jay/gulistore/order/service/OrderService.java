@@ -5,6 +5,7 @@ import com.jay.common.utils.PageUtils;
 import com.jay.gulistore.order.entity.OrderEntity;
 import com.jay.gulistore.order.vo.OrderConfirmVo;
 import com.jay.gulistore.order.vo.OrderSubmitVo;
+import com.jay.gulistore.order.vo.PayVo;
 import com.jay.gulistore.order.vo.SubmitOrderResponseVo;
 
 import java.util.Map;
@@ -25,6 +26,13 @@ public interface OrderService extends IService<OrderEntity> {
     OrderConfirmVo confirmOrder() throws ExecutionException, InterruptedException;
 
     SubmitOrderResponseVo submitOrder(OrderSubmitVo vo);
+
+    PayVo getOrderPay(String orderSn);
+
+    OrderEntity getOrderByOrderSn(String orderSn);
+
+
+    PageUtils queryPageWithItem(Map<String, Object> params);
 
 }
 

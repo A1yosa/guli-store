@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 /*
 * 1、远程调用别的服务
@@ -18,6 +19,7 @@ import org.springframework.context.annotation.ComponentScan;
 * */
 
 //@ComponentScan("com.jay.gulistore.member.feign")
+@EnableRedisHttpSession
 @EnableFeignClients(basePackages = "com.jay.gulistore.member.feign")
 @EnableDiscoveryClient
 @SpringBootApplication
