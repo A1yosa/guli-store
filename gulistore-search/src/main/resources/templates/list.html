@@ -7,6 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/static/search/css/index.css">
     <link rel="stylesheet" type="text/css" href="/static/search/font/iconfont.css">
+
+    <link rel="stylesheet" href="/static/index/css/swiper-3.4.2.min.css">
+    <link rel="stylesheet" href="/static/index/css/GL.css">
+    <script src="/static/index/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <script src="/static/index/js/swiper-3.4.2.jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <script src="/static/index/js/swiper-3.4.2.min.js"></script>
+
     <!--<script src="/static/search/js/jquery-3.2.1.min.js"></script>-->
     <script src="/static/search/js/jquery-1.12.4.js"></script>
     <title>商品检索</title>
@@ -1022,22 +1031,22 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="JD_con_one" style="border:none;">
-                        <div class="mt">
-                            <h3>商品精选</h3>
-                            <span>广告</span>
-                        </div>
-                        <div class="mc">
-                            <ul>
-                                <li>
-                                    <a href="#"><img src="/static/search/img/599a806bn9d829c1c.jpg" alt=""></a>
-                                </li>
-                                <li>
-                                    <a href="#"><img src="/static/search/img/593e4de0n5ff878a4.jpg" alt=""></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+<!--                    <div class="JD_con_one" style="border:none;">-->
+<!--                        <div class="mt">-->
+<!--                            <h3>商品精选</h3>-->
+<!--                            <span>广告</span>-->
+<!--                        </div>-->
+<!--                        <div class="mc">-->
+<!--                            <ul>-->
+<!--                                <li>-->
+<!--                                    <a href="#"><img src="/static/search/img/599a806bn9d829c1c.jpg" alt=""></a>-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <a href="#"><img src="/static/search/img/593e4de0n5ff878a4.jpg" alt=""></a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                    </div>-->
                 </div>
             </div>
             <!--综合排序-->
@@ -1297,6 +1306,117 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="section_second">
+    <!-- 第一层 -->
+    <div class="section_second_header">
+        <p class="section_second_header_img"></p>
+        <div class="section_second_header_left">
+            <p></p>
+            <span class="">猜你喜欢</span>
+            <span> </span>
+            <span>
+        </span>
+        </div>
+<!--        <div class="section_second_header_right">-->
+<!--            <p>当前场次</p>-->
+<!--            <span class="section_second_header_right_hours">00</span>-->
+<!--            <span class="section_second_header_right_mao">：</span>-->
+<!--            <span class="section_second_header_right_minutes">00</span>-->
+<!--            <span class="section_second_header_right_mao">：</span>-->
+<!--            <span class="section_second_header_right_second">00</span>-->
+<!--            <p>后结束</p>-->
+<!--        </div>-->
+    </div>
+    <div class="section_second_list">
+        <div class="swiper-container swiper_section_second_list_left">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <ul>
+                        <li th:each="product : ${result.getProducts()}">
+                            <img th:src="${product.skuImg}" style="width: 130px; height: 130px" alt="">
+                            <p th:utext="${product.skuTitle}">花王 (Merries) 妙而舒 纸尿裤 大号 L54片 尿不湿（9-14千克） （日本官方直采） 花王 (Merries) 妙而舒 纸尿裤 大号 L54片 尿不湿（9-14千</p>
+                            <span th:text="'￥' + ${product.skuPrice}">¥83.9</span><s>¥99.9</s>
+                        </li>
+                        <li>
+                            <img src="/static/index/img/section_second_list_img2.jpg" alt="">
+                            <p>华为mate9 4GB+32GB版 月光银 移动联通电信4G手机 双卡</p>
+                            <span>¥17.90</span><s>¥29.90</s>
+                        </li>
+                        <li>
+                            <img src="/static/index/img/section_second_list_img3.jpg" alt="">
+                            <p>超能 植翠低泡洗衣液（鲜艳亮丽）2kg/袋装（新老包装随机</p>
+                            <span>¥20.70</span><s>¥44.90</s>
+                        </li>
+                        <li>
+                            <img src="/static/index/img/section_second_list_img4.jpg" alt="">
+                            <p>长城（GreatWall）红酒 特选5年橡木桶解百纳干红葡萄酒 整</p>
+                            <span>¥399.00</span><s>¥599.00</s>
+                        </li>
+                        <li>
+                            <img src="/static/index/img/section_second_list_img5.jpg" alt="">
+                            <p>惠普(HP)暗影精灵2代Pro 15.6英寸游戏笔记本电脑(i5-7300H</p>
+                            <span>¥5999.00</span><s>¥6499.00</s>
+                        </li>
+                    </ul>
+                </div>
+
+
+
+                <div class="swiper-slide">
+                    <ul>
+                        <li>
+                            <img src="/static/index/img/section_second_list_img6.jpg" alt="">
+                            <p>Apple iMac 21.5英寸一体机（2017新款四核Core i5 处理器/8GB内存/1TB/RP555显卡/4K屏 MNDY2CH/A） Apple iMac 21.5英寸一体机（2017新款四核Core i5 处理</p>
+                            <span>¥9588.00</span><s>¥10288.00</s>
+                        </li>
+                        <li>
+                            <img src="/static/index/img/section_second_list_img7.jpg" alt="">
+                            <p>中柏（Jumper）EZpad 4S Pro 10.6英寸二合一平板电脑（X5 z</p>
+                            <span>¥848.00</span><s>¥899.00</s>
+                        </li>
+                        <li>
+                            <img src="/static/index/img/section_second_list_img8.jpg" alt="">
+                            <p>飞利浦（PHILIPS）电动牙刷HX6761/03亮白型成人充电式声波震动牙刷粉色 飞利浦（PHILIPS）电动牙刷HX6761/03亮白型成人充电式声波
+                            </p>
+                            <span>¥379.00</span><s>¥698.00</s>
+                        </li>
+                        <li>
+                            <img src="/static/index/img/section_second_list_img9.jpg" alt="">
+                            <p>美的(Midea) 258升 变频智能三门冰箱 一级能效 风冷无霜 中门</p>
+                            <span>¥3088.00</span><s>¥3299.00</s>
+                        </li>
+                        <li>
+                            <img src="/static/index/img/section_second_list_img10.jpg" alt="">
+                            <p>【第二件减50元】蒙羊 内蒙古羔羊羊肋排 2.4斤</p>
+                            <span>¥99.90</span><s>¥199.00</s>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="swiper-button-prev second_list">
+                <p></p>
+            </div>
+            <div class="swiper-button-next second_list">
+                <p></p>
+            </div>
+        </div>
+        <ul class="section_second_list_right">
+            <li>
+                <img src="/static/index/img/section_second_list_right_img.jpg" alt="">
+            </li>
+            <li>
+                <img src="/static/index/img/section_second_list_right_img.png" alt="">
+            </li>
+            <div class="section_second_list_right_button">
+                <p class="section_second_list_right_button_active"></p>
+                <p></p>
+            </div>
+        </ul>
+    </div>
+
+
 </div>
 
 <!--商品精选-->
@@ -1666,6 +1786,8 @@
         </div>
     </div>
 </div>
+
+
 
 <div style="width: 1210px;margin: 0 auto;margin-bottom: 10px"><img src="/static/search/img/5a33a2e0N9a04b4af.jpg"
                                                                    alt=""></div>
@@ -2184,5 +2306,13 @@
     })
 
 </script>
+
+<script type="text/javascript" src="/static/index/js/text.js"></script>
+<script type="text/javascript" src="/static/index/js/header.js"></script>
+<script type="text/javascript" src="/static/index/js/secend.js"></script>
+<script type="text/javascript" src="/static/index/js/zz.js"></script>
+<script type="text/javascript" src="/static/index/js/index.js"></script>
+<script type="text/javascript" src="/static/index/js/left,top.js"></script>
+<script type="text/javascript" src="/static/index/js/catelogLoader.js"></script>
 </body>
 </html>

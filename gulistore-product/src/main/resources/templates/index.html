@@ -568,7 +568,7 @@
       <div class="section_second_header_left">
         <p></p>
         <span class="">秒杀</span>
-        <span>总有你想不到的低价</span>
+        <span>为你推荐</span>
         <span>
         </span>
       </div>
@@ -585,12 +585,13 @@
     <div class="section_second_list">
       <div class="swiper-container swiper_section_second_list_left">
         <div class="swiper-wrapper">
+
           <div class="swiper-slide">
             <ul>
-              <li>
-                <img src="/static/index/img/section_second_list_img1.jpg" alt="">
-                <p>花王 (Merries) 妙而舒 纸尿裤 大号 L54片 尿不湿（9-14千克） （日本官方直采） 花王 (Merries) 妙而舒 纸尿裤 大号 L54片 尿不湿（9-14千</p>
-                <span>¥83.9</span><s>¥99.9</s>
+              <li th:each="product : ${recommendRes}">
+                <img th:src="${product.skuDefaultImg}" style="width: 130px; height: 130px" alt="">
+                <p th:utext="${product.skuTitle}">花王 (Merries) 妙而舒 纸尿裤 大号 L54片 尿不湿（9-14千克） （日本官方直采） 花王 (Merries) 妙而舒 纸尿裤 大号 L54片 尿不湿（9-14千</p>
+                <span th:text="'￥' + ${product.price}">¥83.9</span><s>¥99.9</s>
               </li>
               <li>
                 <img src="/static/index/img/section_second_list_img2.jpg" alt="">
@@ -614,6 +615,7 @@
               </li>
             </ul>
           </div>
+
           <div class="swiper-slide">
             <ul>
               <li>

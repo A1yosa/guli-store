@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
@@ -34,6 +35,12 @@ public class MemberWebController {
 //		支付宝返回的页面数据
 //		System.out.println(r.get("page"));
         return "orderList";
+    }
+
+    @RequestMapping("/submit")
+    public String submitForm(@RequestParam("rating") int rating) {
+        // 处理评分值和其他参数
+        return "success";
     }
 }
 

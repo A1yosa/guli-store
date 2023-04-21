@@ -1,16 +1,18 @@
 package com.jay.gulistore.product.app;
 
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.jay.gulistore.product.entity.SkuInfoEntity;
 import com.jay.gulistore.product.service.SkuInfoService;
 import com.jay.common.utils.PageUtils;
 import com.jay.common.utils.R;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -38,6 +40,25 @@ public class SkuInfoController {
         return R.ok().setData(skuInfoEntity.getPrice().toString());
     }
 
+    @GetMapping("/recommend.html")
+    public R listPage( Long skuId , Model model, HttpServletRequest request){
+        Random r = new Random();
+        List<SkuInfoEntity> recommendRes = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            skuId = Long.valueOf(r.nextInt(200));
+            SkuInfoEntity recommend = skuInfoService.getById(skuId);
+            recommendRes.add(recommend);
+        }
+//        skuId = Long.valueOf(r.nextInt(200));
+//        SkuInfoEntity recommend = skuInfoService.getById(skuId);
+        System.out.println("===================="+recommendRes);
+//        model.addAttribute("recommendImag",recommend.getSkuDefaultImg());
+//        model.addAttribute("recommendTitle",recommend.getSkuTitle());
+//        model.addAttribute("recommendPrice",recommend.getPrice());
+        model.addAttribute("recommendRes",recommendRes);
+        return R.ok().put("recommendRes",recommendRes);
+
+    }
 
 
     /**

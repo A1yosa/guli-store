@@ -265,7 +265,7 @@
             </ul>
           </td>
           <td th:if="${itemStat.index==0}" th:rowspan="${itemStat.size}">
-            <button>确认收货</button>
+            <button onclick="test()">确认收货</button>
             <p style="margin:4px 0; ">取消订单</p>
             <p>催单</p>
           </td>
@@ -941,6 +941,19 @@
   </div>
 </div>
 </body>
+<script>
+  function test() {
+    var text=prompt("请评分，5分制","");
+    // document.write(text);
+
+  }
+  // 点击提交按钮将评分值传递给后端
+  $('#rating-submit').click(function(){
+    var rating = $('.star-rating i.fa-star').last().data('rating');
+    $('#rating-input').val(rating);
+    $('#rating-form').submit();
+  });
+</script>
 <script src="/static/order/list/js/jquery-3.1.1.min.js"></script>
 <script src="/static/order/list/js/index.js"></script>
 
